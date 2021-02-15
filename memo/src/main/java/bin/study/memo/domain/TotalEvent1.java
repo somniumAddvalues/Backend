@@ -29,7 +29,7 @@ public class TotalEvent1 {
     private int used_active_stamp;
     private int used_story_stamp;
     //바뀔 것으로 보임 -> 이벤트 신청자 정보
-    private String tel;
+    private String user_info;
     private List<Integer> request_event_present;
 
     @Builder
@@ -43,7 +43,7 @@ public class TotalEvent1 {
         this.unused_story_stamp = unused_story_stamp;
         this.used_active_stamp = used_active_stamp;
         this.used_story_stamp = used_story_stamp;
-        this.tel = tel;
+        this.user_info = tel;
         this.request_event_present = request_event_present;
     }
 }
