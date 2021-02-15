@@ -46,7 +46,8 @@ public class EventService {
                 //0. 현재 타입을 통해 가능한 이벤트 목록을 불러온다.
                 List<String> attend_typeList = new ArrayList<String>();
                 attend_typeList.add("리뷰");
-                List<EventInfo> eventList = eventInfoMongodbRepository.findByEvent_attend_typeIn(attend_typeList);
+              List<EventInfo> eventList = eventInfoMongodbRepository.findByEventAttendTypeIn(attend_typeList);
+                //List<EventInfo> eventList = new ArrayList<EventInfo>();
                 // 1 . event record에 기록한다.
                 if (eventList.size() != 0){
                         for (EventInfo event : eventList) {
@@ -115,11 +116,11 @@ public class EventService {
 
         public void insertEventRecord(Reviews review, EventInfo event) {
                 EventRecord record = new EventRecord();
-                record.setAttend_date(review.getCreate_date());
-                record.setAttent_event_type(review.getType());
+                record.setAttendDate(review.getCreate_date());
+                record.setAttentEventType(review.getType());
                 record.setEmail(review.getUsername());
                 record.setEid(event.getEid());
-                record.setUsed_point_type(1);
+                record.setUsedPointType(1);
                 record.setErid(dbHandler.generateSequence(EventRecord.SEQUENCE_NAME));
                 eventRecordMongodbRepository.save(record);
         }
@@ -128,10 +129,10 @@ public class EventService {
                 SimpleDateFormat date = new SimpleDateFormat("yyyyMMdd");
                 String attend_date = date.format(new Date());
                 EventRecord record = new EventRecord();
-                record.setAttend_date(attend_date);
+                record.setAttendDate(attend_date);
                 record.setEmail(email);
                 record.setEid(eid);
-                record.setUsed_point_type(2);
+                record.setUsedPointType(2);
                 record.setErid(dbHandler.generateSequence(EventRecord.SEQUENCE_NAME));
                 eventRecordMongodbRepository.save(record);
         }

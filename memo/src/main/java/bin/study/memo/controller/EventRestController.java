@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
-@RestController("/events")
+@RestController
 public class EventRestController {
     @Autowired
     private JwtUtil jwtUtil;
@@ -24,7 +24,7 @@ public class EventRestController {
     @Autowired
     private EventService eventService;
 
-    @GetMapping("/{eid}")
+    @GetMapping("/events/{eid}")
     public TotalEvent1 getUserEventInfo(@PathVariable Long eid, HttpServletRequest req){
         String refresh_token = cookieUtil.getCookie(req, "refresh_token").getValue();
         String email = jwtUtil.getEmail(refresh_token);
@@ -32,7 +32,7 @@ public class EventRestController {
         return totalEvent1;
     }
 
-    @PostMapping("/{eid}")
+    @PostMapping("/events/{eid}")
     public User participantsEvent(Long eid, HttpServletRequest req, Map<String,Object> data){
         String refresh_token = cookieUtil.getCookie(req, "refresh_token").getValue();
         String email = jwtUtil.getEmail(refresh_token);
@@ -40,7 +40,7 @@ public class EventRestController {
         EventInfo eventInfo = eventService.getEventInfo(eid);
 
         int request_event_num = (int) data.get("request_event_num");
-        int point = eventInfo.getEvent_point().get(request_event_num);
+        int point = eventInfo.getEventPoint().get(request_event_num);
         String tel = (String)data.get("user_info");
 
         User user = eventService.updatePoint(eid ,totalEvent1, point, request_event_num,email);

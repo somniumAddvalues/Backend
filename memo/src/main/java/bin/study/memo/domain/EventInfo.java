@@ -24,29 +24,29 @@ public class EventInfo {
     //event id
     private Long eid;
     //event 제목
-    private String evet_name;
+    private String EventName;
     //활동주체
-    private String event_end_date;
+    private String EventEndDate;
     //회사 링크
-    private String event_start_date;
+    private String EventStartDate;
     //이벤트 유형
-    private String event_type;
+    private String EventType;
     //진행중
-    private int event_end = 1;
+    private int EventEnd = 1;
 
-    private List<String> event_attend_type;
+    private List<String> EventAttendType;
 
-    private List<Integer> event_point;
+    private List<Integer> EventPoint;
     @Builder
     public EventInfo(ObjectId id, Long eid, String evet_name, String event_end_date, String event_start_date, String event_type, int event_end, List<String> event_attend_type, List<Integer> event_point) {
         this.id = id;
         this.eid = eid;
-        this.evet_name = evet_name;
-        this.event_end_date = event_end_date;
-        this.event_start_date = event_start_date;
-        this.event_type = event_type;
-        this.event_end = event_end;
-        this.event_attend_type = event_attend_type;
-        this.event_point = event_point;
+        this.EventName= evet_name;
+        this.EventEndDate = event_end_date;
+        this.EventStartDate = event_start_date;
+        this.EventType = event_type;
+        this.EventEnd = event_end;
+        this.EventAttendType = event_attend_type;
+        this.EventPoint = event_point;
     }
 }
