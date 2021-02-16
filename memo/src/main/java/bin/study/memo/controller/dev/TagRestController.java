@@ -1,15 +1,17 @@
-package bin.study.memo.controller;
+package bin.study.memo.controller.dev;
 
 import bin.study.memo.domain.Tag;
 import bin.study.memo.dto.TagDto;
 import bin.study.memo.error.TagError;
 import bin.study.memo.service.server.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@Profile("dev")
 public class TagRestController {
 
     @Autowired

@@ -1,4 +1,4 @@
-package bin.study.memo.controller;
+package bin.study.memo.controller.local;
 
 import bin.study.memo.domain.Activities;
 import bin.study.memo.domain.Survey;
@@ -13,6 +13,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +24,7 @@ import java.util.Map;
 
 
 @RestController
+@Profile("local")
 public class ActivityRestController {
 
     @Autowired

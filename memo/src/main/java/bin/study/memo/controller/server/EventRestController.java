@@ -1,4 +1,4 @@
-package bin.study.memo.controller;
+package bin.study.memo.controller.server;
 
 import bin.study.memo.domain.EventInfo;
 import bin.study.memo.domain.TotalEvent1;
@@ -7,6 +7,7 @@ import bin.study.memo.service.server.EventService;
 import bin.study.memo.utils.CookieUtil;
 import bin.study.memo.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 @RestController
+@Profile("server")
 public class EventRestController {
     @Autowired
     private JwtUtil jwtUtil;

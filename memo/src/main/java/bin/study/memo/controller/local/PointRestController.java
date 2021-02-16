@@ -1,10 +1,11 @@
-package bin.study.memo.controller;
+package bin.study.memo.controller.local;
 
 import bin.study.memo.domain.Point;
 import bin.study.memo.service.server.PointService;
 import bin.study.memo.utils.CookieUtil;
 import bin.study.memo.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
+@Profile("local")
 public class PointRestController {
 
     @Autowired

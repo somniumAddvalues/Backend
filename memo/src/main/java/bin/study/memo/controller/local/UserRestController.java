@@ -1,4 +1,4 @@
-package bin.study.memo.controller;
+package bin.study.memo.controller.local;
 
 
 import bin.study.memo.domain.Email;
@@ -14,6 +14,7 @@ import bin.study.memo.service.server.UserService;
 import bin.study.memo.utils.CookieUtil;
 import bin.study.memo.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.ResponseCookie;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -25,6 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 @RestController
+@Profile("local")
 public class UserRestController {
 
     @Autowired
@@ -97,14 +99,10 @@ public class UserRestController {
             cookieUtil.deleteCookie(request, response);
 
             ResponseCookie cookie = ResponseCookie.from("access_token", "")
-                    .httpOnly(true)
-                    .sameSite("None")
                     .secure(true)
                     .path("/")
                     .build();
             ResponseCookie cookie2 = ResponseCookie.from("refresh_token", loginError.getRefresh_token())
-                    .httpOnly(true)
-                    .sameSite("None")
                     .secure(true)
                     .path("/")
                     .build();
@@ -129,14 +127,10 @@ public class UserRestController {
         if(refresh != null){
             tokenError= userService.createToken(refresh.getValue());
             ResponseCookie cookie = ResponseCookie.from("access_token", "")
-                    .httpOnly(true)
-                    .sameSite("None")
                     .secure(true)
                     .path("/")
                     .build();
             ResponseCookie cookie2 = ResponseCookie.from("refresh_token", refresh.getValue())
-                    .httpOnly(true)
-                    .sameSite("None")
                     .secure(true)
                     .path("/")
                     .build();

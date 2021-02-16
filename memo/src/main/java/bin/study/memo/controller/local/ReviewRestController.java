@@ -1,8 +1,8 @@
-package bin.study.memo.controller;
+package bin.study.memo.controller.local;
 
 import bin.study.memo.domain.Activities;
-import bin.study.memo.dto.ReviewDto;
 import bin.study.memo.domain.Reviews;
+import bin.study.memo.dto.ReviewDto;
 import bin.study.memo.error.ReviewError;
 import bin.study.memo.handler.Regexhandler;
 import bin.study.memo.repository.active.ActivityMongodbRepository;
@@ -10,6 +10,7 @@ import bin.study.memo.service.server.ReviewService;
 import bin.study.memo.utils.CookieUtil;
 import bin.study.memo.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +19,7 @@ import java.util.List;
 
 
 @RestController
+@Profile("local")
 public class ReviewRestController {
 
     @Autowired

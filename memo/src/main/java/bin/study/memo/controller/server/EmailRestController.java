@@ -1,10 +1,11 @@
-package bin.study.memo.controller;
+package bin.study.memo.controller.server;
 
 import bin.study.memo.error.EmailError;
 import bin.study.memo.error.TokenError;
 import bin.study.memo.impl.EmailServiceImpl;
 import bin.study.memo.utils.CookieUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.ResponseCookie;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,7 @@ import java.util.HashMap;
 
 
 @Controller
+@Profile("server")
 public class EmailRestController {
 
     @Autowired
