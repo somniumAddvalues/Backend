@@ -99,11 +99,9 @@ public class UserRestController {
             cookieUtil.deleteCookie(request, response);
 
             ResponseCookie cookie = ResponseCookie.from("access_token", "")
-                    .secure(true)
                     .path("/")
                     .build();
             ResponseCookie cookie2 = ResponseCookie.from("refresh_token", loginError.getRefresh_token())
-                    .secure(true)
                     .path("/")
                     .build();
 
@@ -127,11 +125,9 @@ public class UserRestController {
         if(refresh != null){
             tokenError= userService.createToken(refresh.getValue());
             ResponseCookie cookie = ResponseCookie.from("access_token", "")
-                    .secure(true)
                     .path("/")
                     .build();
             ResponseCookie cookie2 = ResponseCookie.from("refresh_token", refresh.getValue())
-                    .secure(true)
                     .path("/")
                     .build();
 

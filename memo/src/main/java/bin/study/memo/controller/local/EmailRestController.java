@@ -36,7 +36,6 @@ public class EmailRestController {
         cookieUtil.deleteCookie(request, response);
 
         ResponseCookie cookie = ResponseCookie.from("refresh_token", tokenError.getRefresh_token())
-                .secure(true)
                 .path("/")
                 .build();
 

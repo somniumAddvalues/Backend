@@ -46,6 +46,10 @@ public class EventService {
               List<EventInfo> eventList = getEventInfo();
                 //List<EventInfo> eventList = new ArrayList<EventInfo>();
                 // 1 . event record에 기록한다.
+                if(review.getType().equals("참여형"))
+                {
+                        return ;
+                }
                 if (eventList.size() != 0){
                         for (EventInfo event : eventList) {
                                 TotalEvent1 totalevent1 = totalEvent1MongodbRepository.findByEmail(review.getUsername());
@@ -162,7 +166,7 @@ public class EventService {
                                 Criteria.where("eventAttendType").is("review")
                         )
                 );
-               List<EventInfo> totalEvent1 = mongoTemplate.find(query, EventInfo.class, "EventInfo");
+               List<EventInfo> totalEvent1 = mongoTemplate.find(query, EventInfo.class, "eventinfo");
                 return totalEvent1;
         }
 
