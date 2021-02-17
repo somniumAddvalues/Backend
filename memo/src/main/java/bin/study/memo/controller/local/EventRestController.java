@@ -46,7 +46,7 @@ public class EventRestController {
 
         eventService.useEventRecord(email,eid);
         if (request_event_num == 1){
-            eventService.updateTotalEventFirst(totalEvent1,request_event_num,tel);
+            eventService.updateTotalEventFirst(totalEvent1,tel);
         } else{
             eventService.updateTotalEventSecond(totalEvent1);
         }

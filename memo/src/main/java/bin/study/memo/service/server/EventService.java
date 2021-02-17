@@ -85,6 +85,7 @@ public class EventService {
                                                                 .used_active_stamp(0)
                                                                 .used_story_stamp(0)
                                                                 .build();
+                totalEvent1MongodbRepository.save(totalEvent1);
         }
 
         public void updateTotalEvent1(Reviews review, TotalEvent1 event) {
@@ -162,7 +163,7 @@ public class EventService {
                 return eventInfo;
         }
 
-        public void updateTotalEventFirst(TotalEvent1 totalEvent1, int request_event_num,String tel) {
+        public void updateTotalEventFirst(TotalEvent1 totalEvent1,,String tel) {
                 List<Integer> a = totalEvent1.getRequest_event_present();
                 a.add(1);
 
