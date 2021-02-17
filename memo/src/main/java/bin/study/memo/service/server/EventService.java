@@ -43,7 +43,7 @@ public class EventService {
         public void insertReviewEvent(Reviews review) {
                 //0. 현재 타입을 통해 가능한 이벤트 목록을 불러온다.
 
-              List<EventInfo> eventList = eventInfoMongodbRepository.findByEventAttendType("review");
+              List<EventInfo> eventList = getEventInfo();
                 //List<EventInfo> eventList = new ArrayList<EventInfo>();
                 // 1 . event record에 기록한다.
                 if (eventList.size() != 0){
@@ -154,6 +154,22 @@ public class EventService {
                 TotalEvent1 totalEvent1 = mongoTemplate.findOne(query, TotalEvent1.class, "TotalEvent1");
                 return totalEvent1;
         }
+
+        public List<EventInfo> getEventInfo(){
+                Query query = new Query();
+                query.addCriteria(
+                        new Criteria().andOperator(
+                                Criteria.where("eventAttendType").is("review")
+                        )
+                );
+               List<EventInfo> totalEvent1 = mongoTemplate.find(query, EventInfo.class, "EventInfo");
+                return totalEvent1;
+        }
+
+
+
+
+
 
         public User updatePoint(Long eid, TotalEvent1 totalEvent1, int point, int request_event_num, String email) {
                 //포인트 주기
