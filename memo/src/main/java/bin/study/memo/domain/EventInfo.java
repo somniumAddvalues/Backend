@@ -34,11 +34,11 @@ public class EventInfo {
     //진행중
     private int EventEnd = 1;
 
-    private List<String> EventAttendType;
+    private String eventAttendType;
 
     private List<Integer> EventPoint;
     @Builder
-    public EventInfo(ObjectId id, Long eid, String evet_name, String event_end_date, String event_start_date, String event_type, int event_end, List<String> event_attend_type, List<Integer> event_point) {
+    public EventInfo(ObjectId id, Long eid, String evet_name, String event_end_date, String event_start_date, String event_type, int event_end, String event_attend_type, List<Integer> event_point) {
         this.id = id;
         this.eid = eid;
         this.EventName= evet_name;
@@ -46,7 +46,7 @@ public class EventInfo {
         this.EventStartDate = event_start_date;
         this.EventType = event_type;
         this.EventEnd = event_end;
-        this.EventAttendType = event_attend_type;
+        this.eventAttendType = event_attend_type;
         this.EventPoint = event_point;
     }
 }

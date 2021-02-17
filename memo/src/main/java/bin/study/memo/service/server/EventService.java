@@ -12,7 +12,6 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
@@ -41,12 +40,10 @@ public class EventService {
         private DBhandler dbHandler;
 
 
-        @Async
         public void insertReviewEvent(Reviews review) {
                 //0. 현재 타입을 통해 가능한 이벤트 목록을 불러온다.
-                List<String> attend_typeList = new ArrayList<String>();
-                attend_typeList.add("리뷰");
-              List<EventInfo> eventList = eventInfoMongodbRepository.findByEventAttendTypeIn(attend_typeList);
+
+              List<EventInfo> eventList = eventInfoMongodbRepository.findByEventAttendType("review");
                 //List<EventInfo> eventList = new ArrayList<EventInfo>();
                 // 1 . event record에 기록한다.
                 if (eventList.size() != 0){

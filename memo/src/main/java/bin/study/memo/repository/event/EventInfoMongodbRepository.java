@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import java.util.List;
 
 public interface EventInfoMongodbRepository extends MongoRepository<EventInfo,Long> {
-    List<EventInfo> findByEventAttendTypeIn(List<String> attend_typeList);
+    List<EventInfo> findByEventAttendType(String attend_typeList);
 
     EventInfo findByEid(Long eid);
 }
