@@ -23,13 +23,13 @@ public class TotalEvent1 {
     //이벤트 신청 횟수(보상)
     private int request_event_num;
     //비 사용 스탬프 관리
-    private int ReceivedActiveStamp;
-    private int ReceivedStoryStamp;
-    private int UnreceivedActiveStamp;
-    private int UnreceivedStoryStamp;
+    private int receivedActiveStamp;
+    private int receivedStoryStamp;
+    private int unreceivedActiveStamp;
+    private int unreceivedStoryStamp;
     //바뀔 것으로 보임 -> 이벤트 신청자 정보
     private String user_info;
-    private List<Boolean> RequestEventPresent;
+    private List<Boolean> requestEventPresent;
 
     @Builder
 
@@ -38,11 +38,11 @@ public class TotalEvent1 {
         this.email = email;
         this.tid = tid;
         this.request_event_num = request_event_num;
-        this.ReceivedActiveStamp = receivedActiveStamp;
-        this.ReceivedStoryStamp = receivedStoryStamp;
-        this.UnreceivedActiveStamp = unreceivedActiveStamp;
-        this.UnreceivedStoryStamp = unreceivedStoryStamp;
+        this.receivedActiveStamp = receivedActiveStamp;
+        this.receivedStoryStamp = receivedStoryStamp;
+        this.unreceivedActiveStamp = unreceivedActiveStamp;
+        this.unreceivedStoryStamp = unreceivedStoryStamp;
         this.user_info = user_info;
-        this.RequestEventPresent = requestEventPresent;
+        this.requestEventPresent = requestEventPresent;
     }
 }

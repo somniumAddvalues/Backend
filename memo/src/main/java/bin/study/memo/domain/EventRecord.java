@@ -26,11 +26,11 @@ public class EventRecord {
     //이메일(사용자명)
     private String email;
     //활동주체
-    private String AttendDate;
+    private String attendDate;
     //활동 스토리(후기, 응원) 판단하는 타입
-    private String AttentEventType;
+    private String attentEventType;
     //사용, 적립 확
-    private int UsedPointType;
+    private int usedPointType;
 
     @Builder
 
@@ -39,8 +39,8 @@ public class EventRecord {
         this.erid = erid;
         this.eid = eid;
         this.email = email;
-        this.AttendDate = attend_date;
-        this.AttentEventType = attent_event_type;
-        this.UsedPointType = used_point_type;
+        this.attendDate = attend_date;
+        this.attentEventType = attent_event_type;
+        this.usedPointType = used_point_type;
     }
 }
