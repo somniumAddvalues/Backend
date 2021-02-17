@@ -74,32 +74,37 @@ public class EventService {
                 }else if(review.getType().equals("활동형")){
                         active_stamp = 1;
                 }
+                List<Boolean> a = new ArrayList<Boolean>();
+                a.add(false);
+                a.add(false);
                 TotalEvent1 totalEvent1 = TotalEvent1.builder()
                                                                 .eid(event.getEid())
                                                                 .tid(dbHandler.generateSequence(TotalEvent1.SEQUENCE_NAME))
                                                                 .email(review.getUsername())
                                                                 .request_event_num(0)
-                                                                .request_event_present(new ArrayList<Integer>())
-                                                                .unused_active_stamp(active_stamp)
-                                                                .unused_story_stamp(story_stamp)
-                                                                .used_active_stamp(0)
-                                                                .used_story_stamp(0)
+                                                                .requestEventPresent(a)
+                                                                .receivedActiveStamp(active_stamp)
+                                                                .receivedStoryStamp(story_stamp)
+                                                                .unreceivedActiveStamp(5-active_stamp)
+                                                                .unreceivedStoryStamp(5-active_stamp)
                                                                 .build();
                 totalEvent1MongodbRepository.save(totalEvent1);
         }
 
         public void updateTotalEvent1(Reviews review, TotalEvent1 event) {
                 if (review.getType().equals("스토리형")){
-                        if(event.getUnused_story_stamp()+event.getUsed_story_stamp() >= 5){
-                                event.setUnused_story_stamp(event.getUnused_story_stamp());
+                        if(event.getReceivedActiveStamp() >= 5){
+                                event.setReceivedActiveStamp(event.getReceivedActiveStamp());
                         }else{
-                                event.setUnused_story_stamp(event.getUnused_story_stamp()+1);
+                                event.setReceivedActiveStamp(event.getReceivedActiveStamp()+1);
+                                event.setUnreceivedActiveStamp(event.getUnreceivedActiveStamp()-1);
                         }
                 }else if(review.getType().equals("활동형")){
-                        if(event.getUnused_active_stamp()+event.getUsed_active_stamp() >= 5){
-                                event.setUnused_active_stamp(event.getUsed_active_stamp());
+                        if(event.getReceivedStoryStamp() >= 5){
+                                event.setReceivedStoryStamp(event.getReceivedStoryStamp());
                         }else{
-                                event.setUnused_active_stamp(event.getUsed_active_stamp()+1);
+                                event.setReceivedStoryStamp(event.getReceivedStoryStamp()+1);
+                                event.setUnreceivedStoryStamp(event.getUnreceivedStoryStamp()-1);
                         }
                 }
                 try {
@@ -107,8 +112,10 @@ public class EventService {
                         Update update = new Update();
                         // where절 조건
                         query.addCriteria(Criteria.where("tid").is(event.getTid()));
-                        update.set("unused_active_stamp", event.getUnused_active_stamp());
-                        update.set("unused_story_stamp",event.getUnused_story_stamp());
+                        update.set("ReceivedActiveStamp", event.getReceivedActiveStamp());
+                        update.set("ReceivedStoryStamp",event.getReceivedStoryStamp());
+                        update.set("UnreceivedActiveStamp",event.getUnreceivedActiveStamp());
+                        update.set("UnreceivedStoryStamp",event.getUnreceivedStoryStamp());
                         mongoTemplate.updateMulti(query, update, "TotalEvent1");
                 } catch (Exception e) {
                         e.getMessage();
@@ -164,47 +171,17 @@ public class EventService {
         }
 
         public void updateTotalEventFirst(TotalEvent1 totalEvent1,String tel) {
-                List<Integer> a = totalEvent1.getRequest_event_present();
-                a.add(1);
-
-                if(totalEvent1.getUnused_active_stamp() >=5){
-                        totalEvent1.setUnused_active_stamp(totalEvent1.getUnused_active_stamp()-5);
-                        totalEvent1.setUsed_active_stamp(totalEvent1.getUsed_active_stamp()+5);
-                        totalEvent1.setUnused_story_stamp(totalEvent1.getUnused_story_stamp()-1);
-                        totalEvent1.setUsed_story_stamp(totalEvent1.getUsed_story_stamp()+1);
-                }
-                else if (totalEvent1.getUnused_story_stamp() >=5 ){
-                        totalEvent1.setUnused_story_stamp(totalEvent1.getUnused_story_stamp()-5);
-                        totalEvent1.setUsed_story_stamp(totalEvent1.getUsed_story_stamp()+5);
-                        totalEvent1.setUnused_active_stamp(totalEvent1.getUnused_active_stamp()-1);
-                        totalEvent1.setUsed_active_stamp(totalEvent1.getUsed_active_stamp()+1);
-                }else{
-                        if(totalEvent1.getUnused_active_stamp() > totalEvent1.getUnused_story_stamp()){
-                                int stamp = 6 - totalEvent1.getUnused_active_stamp();
-                                totalEvent1.setUsed_active_stamp(totalEvent1.getUsed_active_stamp()+  totalEvent1.getUnused_active_stamp());
-                                totalEvent1.setUnused_active_stamp(0);
-                                totalEvent1.setUnused_story_stamp(totalEvent1.getUnused_story_stamp()-stamp);
-                                totalEvent1.setUsed_story_stamp(totalEvent1.getUsed_story_stamp()+stamp);
-                        }else{
-                                int stamp = 6 - totalEvent1.getUnused_story_stamp();
-                                totalEvent1.setUsed_story_stamp(totalEvent1.getUsed_story_stamp()+  totalEvent1.getUnused_story_stamp());
-                                totalEvent1.setUnused_story_stamp(0);
-                                totalEvent1.setUnused_active_stamp(totalEvent1.getUnused_active_stamp()-stamp);
-                                totalEvent1.setUsed_active_stamp(totalEvent1.getUsed_active_stamp()+stamp);
-                        }
-                }
+                List<Boolean> a = totalEvent1.getRequestEventPresent();
+                List<Boolean> b = new ArrayList<Boolean>();
+                b.add(true);
+                b.add(a.get(1));
 
                 try {
                         Query query = new Query();
                         Update update = new Update();
-                        totalEvent1.setRequest_event_present(a);
                         // where절 조건
                         query.addCriteria(Criteria.where("tid").is(totalEvent1.getTid()));
-                        update.set("unused_active_stamp", totalEvent1.getUnused_active_stamp());
-                        update.set("unused_story_stamp",totalEvent1.getUnused_story_stamp());
-                        update.set("used_active_stamp", totalEvent1.getUsed_active_stamp());
-                        update.set("used_story_stamp",totalEvent1.getUsed_story_stamp());
-                        update.set("request_event_present",totalEvent1.getRequest_event_present());
+                        update.set("RequestEventPresent",b);
                         update.set("tel",tel);
                         mongoTemplate.updateMulti(query, update, "TotalEvent1");
                 } catch (Exception e) {
@@ -213,23 +190,19 @@ public class EventService {
         }
 
         public void updateTotalEventSecond(TotalEvent1 totalEvent1) {
-                List<Integer> a = totalEvent1.getRequest_event_present();
-                a.add(2);
+                List<Boolean> a = totalEvent1.getRequestEventPresent();
+                List<Boolean> b = new ArrayList<Boolean>();
+                b.add(a.get(0));
+                b.add(true);
                 try {
                         Query query = new Query();
                         Update update = new Update();
-                        totalEvent1.setRequest_event_present(a);
                         // where절 조건
                         query.addCriteria(Criteria.where("tid").is(totalEvent1.getTid()));
-                        update.set("unused_active_stamp", 0);
-                        update.set("unused_story_stamp",0);
-                        update.set("used_active_stamp",5);
-                        update.set("used_story_stamp",0);
-                        update.set("request_event_present",totalEvent1.getRequest_event_present());
+                        update.set("RequestEventPresent",b);
                         mongoTemplate.updateMulti(query, update, "TotalEvent1");
                 } catch (Exception e) {
                         e.getMessage();
                 }
-
         }
 }

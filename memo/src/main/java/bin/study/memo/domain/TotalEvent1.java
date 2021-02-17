@@ -23,27 +23,26 @@ public class TotalEvent1 {
     //이벤트 신청 횟수(보상)
     private int request_event_num;
     //비 사용 스탬프 관리
-    private int unused_active_stamp;
-    private int unused_story_stamp;
-    //사용 스탬프 관리
-    private int used_active_stamp;
-    private int used_story_stamp;
+    private int ReceivedActiveStamp;
+    private int ReceivedStoryStamp;
+    private int UnreceivedActiveStamp;
+    private int UnreceivedStoryStamp;
     //바뀔 것으로 보임 -> 이벤트 신청자 정보
     private String user_info;
-    private List<Integer> request_event_present;
+    private List<Boolean> RequestEventPresent;
 
     @Builder
 
-    public TotalEvent1(Long eid, String email, Long tid, int request_event_num, int unused_active_stamp, int unused_story_stamp, int used_active_stamp, int used_story_stamp, String tel, List<Integer> request_event_present) {
+    public TotalEvent1(Long eid, String email, Long tid, int request_event_num, int receivedActiveStamp, int receivedStoryStamp, int unreceivedActiveStamp, int unreceivedStoryStamp, String user_info, List<Boolean> requestEventPresent) {
         this.eid = eid;
         this.email = email;
         this.tid = tid;
         this.request_event_num = request_event_num;
-        this.unused_active_stamp = unused_active_stamp;
-        this.unused_story_stamp = unused_story_stamp;
-        this.used_active_stamp = used_active_stamp;
-        this.used_story_stamp = used_story_stamp;
-        this.user_info = tel;
-        this.request_event_present = request_event_present;
+        this.ReceivedActiveStamp = receivedActiveStamp;
+        this.ReceivedStoryStamp = receivedStoryStamp;
+        this.UnreceivedActiveStamp = unreceivedActiveStamp;
+        this.UnreceivedStoryStamp = unreceivedStoryStamp;
+        this.user_info = user_info;
+        this.RequestEventPresent = requestEventPresent;
     }
 }
