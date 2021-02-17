@@ -2,7 +2,6 @@ package bin.study.memo.controller.dev;
 
 import bin.study.memo.domain.EventInfo;
 import bin.study.memo.domain.TotalEvent1;
-import bin.study.memo.domain.User;
 import bin.study.memo.service.server.EventService;
 import bin.study.memo.utils.CookieUtil;
 import bin.study.memo.utils.JwtUtil;
@@ -35,19 +34,22 @@ public class EventRestController {
     }
 
     @PostMapping("/events/{eid}")
-    public User participantsEvent(Long eid, HttpServletRequest req, Map<String,Object> data){
+    public Boolean participantsEvent(Long eid, HttpServletRequest req, Map<String,Object> data){
         String refresh_token = cookieUtil.getCookie(req, "refresh_token").getValue();
         String email = jwtUtil.getEmail(refresh_token);
+
         TotalEvent1 totalEvent1 = eventService.getUserEventInfo(eid,email);
         EventInfo eventInfo = eventService.getEventInfo(eid);
 
         int request_event_num = (int) data.get("request_event_num");
-        int point = eventInfo.getEventPoint().get(request_event_num);
         String tel = (String)data.get("user_info");
 
-        User user = eventService.updatePoint(eid ,totalEvent1, point, request_event_num,email);
         eventService.useEventRecord(email,eid);
-        eventService.updateTotalEvent2(totalEvent1,request_event_num,tel);
-        return user;
+        if (request_event_num == 1){
+            eventService.updateTotalEventFirst(totalEvent1,tel);
+        } else{
+            eventService.updateTotalEventSecond(totalEvent1);
+        }
+        return true;
     }
 }

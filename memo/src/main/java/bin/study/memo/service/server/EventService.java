@@ -163,7 +163,7 @@ public class EventService {
                 return eventInfo;
         }
 
-        public void updateTotalEventFirst(TotalEvent1 totalEvent1,,String tel) {
+        public void updateTotalEventFirst(TotalEvent1 totalEvent1,String tel) {
                 List<Integer> a = totalEvent1.getRequest_event_present();
                 a.add(1);
 
