@@ -209,14 +209,14 @@ public class EventService {
                         // where절 조건
                         query.addCriteria(Criteria.where("tid").is(totalEvent1.getTid()));
                         update.set("requestEventPresent",b);
-                        update.set("tel",tel);
+                        update.set("tel1",tel);
                         mongoTemplate.updateMulti(query, update, "TotalEvent1");
                 } catch (Exception e) {
                         e.getMessage();
                 }
         }
 
-        public void updateTotalEventSecond(TotalEvent1 totalEvent1) {
+        public void updateTotalEventSecond(TotalEvent1 totalEvent1,String tel) {
                 List<Boolean> a = totalEvent1.getRequestEventPresent();
                 List<Boolean> b = new ArrayList<Boolean>();
                 b.add(a.get(0));
@@ -227,6 +227,7 @@ public class EventService {
                         // where절 조건
                         query.addCriteria(Criteria.where("tid").is(totalEvent1.getTid()));
                         update.set("requestEventPresent",b);
+                        update.set("tel2",tel);
                         mongoTemplate.updateMulti(query, update, "TotalEvent1");
                 } catch (Exception e) {
                         e.getMessage();

@@ -45,7 +45,7 @@ public class EventRestController {
         if (request_event_num == 1){
             eventService.updateTotalEventFirst(totalEvent1,tel);
         } else{
-            eventService.updateTotalEventSecond(totalEvent1);
+            eventService.updateTotalEventSecond(totalEvent1,tel);
         }
         return true;
     }

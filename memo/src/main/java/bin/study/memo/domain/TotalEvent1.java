@@ -30,10 +30,12 @@ public class TotalEvent1 {
     //바뀔 것으로 보임 -> 이벤트 신청자 정보
     private String user_info;
     private List<Boolean> requestEventPresent;
+    private String tel1;
+    private String tel2;
+
 
     @Builder
-
-    public TotalEvent1(Long eid, String email, Long tid, int request_event_num, int receivedActiveStamp, int receivedStoryStamp, int unreceivedActiveStamp, int unreceivedStoryStamp, String user_info, List<Boolean> requestEventPresent) {
+    public TotalEvent1(Long eid, String email, Long tid, int request_event_num, int receivedActiveStamp, int receivedStoryStamp, int unreceivedActiveStamp, int unreceivedStoryStamp, String user_info, List<Boolean> requestEventPresent, String tel1, String tel2) {
         this.eid = eid;
         this.email = email;
         this.tid = tid;
@@ -44,5 +46,7 @@ public class TotalEvent1 {
         this.unreceivedStoryStamp = unreceivedStoryStamp;
         this.user_info = user_info;
         this.requestEventPresent = requestEventPresent;
+        this.tel1 = tel1;
+        this.tel2 = tel2;
     }
 }
