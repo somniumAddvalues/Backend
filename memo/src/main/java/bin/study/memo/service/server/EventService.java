@@ -91,14 +91,14 @@ public class EventService {
         }
 
         public void updateTotalEvent1(Reviews review, TotalEvent1 event) {
-                if (review.getType().equals("스토리형")){
+                if (review.getType().equals("참여형")){
                         if(event.getReceivedActiveStamp() >= 5){
                                 event.setReceivedActiveStamp(event.getReceivedActiveStamp());
                         }else{
                                 event.setReceivedActiveStamp(event.getReceivedActiveStamp()+1);
                                 event.setUnreceivedActiveStamp(event.getUnreceivedActiveStamp()-1);
                         }
-                }else if(review.getType().equals("참여형")){
+                }else if(review.getType().equals("스토리형")){
                         if(event.getReceivedStoryStamp() >= 5){
                                 event.setReceivedStoryStamp(event.getReceivedStoryStamp());
                         }else{

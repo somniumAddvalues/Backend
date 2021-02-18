@@ -7,10 +7,7 @@ import bin.study.memo.utils.CookieUtil;
 import bin.study.memo.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
@@ -34,7 +31,7 @@ public class EventRestController {
     }
 
     @PostMapping("/events/{eid}")
-    public Boolean participantsEvent(Long eid, HttpServletRequest req, Map<String,Object> data){
+    public Boolean participantsEvent(@PathVariable Long eid, HttpServletRequest req, @RequestBody  Map<String,Object> data){
         String refresh_token = cookieUtil.getCookie(req, "refresh_token").getValue();
         String email = jwtUtil.getEmail(refresh_token);
 
