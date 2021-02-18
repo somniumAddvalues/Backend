@@ -46,10 +46,6 @@ public class EventService {
               List<EventInfo> eventList = getEventInfo();
                 //List<EventInfo> eventList = new ArrayList<EventInfo>();
                 // 1 . event record에 기록한다.
-                if(review.getType().equals("참여형"))
-                {
-                        return ;
-                }
                 if (eventList.size() != 0){
                         for (EventInfo event : eventList) {
                                 TotalEvent1 totalevent1 = totalEvent1MongodbRepository.findByEmail(review.getUsername());
@@ -72,7 +68,9 @@ public class EventService {
                 int active_stamp = 0;
                 if (review.getType().equals("스토리형")){
                          story_stamp = 1;
-                }else if(review.getType().equals("활동형")){
+                }else if(review.getType().equals("참여형")){
+                        active_stamp = 1;
+                }else if(review.getType().equals("기부형")){
                         active_stamp = 1;
                 }
                 List<Boolean> a = new ArrayList<Boolean>();
@@ -87,7 +85,7 @@ public class EventService {
                                                                 .receivedActiveStamp(active_stamp)
                                                                 .receivedStoryStamp(story_stamp)
                                                                 .unreceivedActiveStamp(5-active_stamp)
-                                                                .unreceivedStoryStamp(5-active_stamp)
+                                                                .unreceivedStoryStamp(5-story_stamp)
                                                                 .build();
                 totalEvent1MongodbRepository.save(totalEvent1);
         }
@@ -100,7 +98,14 @@ public class EventService {
                                 event.setReceivedActiveStamp(event.getReceivedActiveStamp()+1);
                                 event.setUnreceivedActiveStamp(event.getUnreceivedActiveStamp()-1);
                         }
-                }else if(review.getType().equals("활동형")){
+                }else if(review.getType().equals("참여형")){
+                        if(event.getReceivedStoryStamp() >= 5){
+                                event.setReceivedStoryStamp(event.getReceivedStoryStamp());
+                        }else{
+                                event.setReceivedStoryStamp(event.getReceivedStoryStamp()+1);
+                                event.setUnreceivedStoryStamp(event.getUnreceivedStoryStamp()-1);
+                        }
+                }else if(review.getType().equals("기부형")){
                         if(event.getReceivedStoryStamp() >= 5){
                                 event.setReceivedStoryStamp(event.getReceivedStoryStamp());
                         }else{
@@ -113,10 +118,10 @@ public class EventService {
                         Update update = new Update();
                         // where절 조건
                         query.addCriteria(Criteria.where("tid").is(event.getTid()));
-                        update.set("ReceivedActiveStamp", event.getReceivedActiveStamp());
-                        update.set("ReceivedStoryStamp",event.getReceivedStoryStamp());
-                        update.set("UnreceivedActiveStamp",event.getUnreceivedActiveStamp());
-                        update.set("UnreceivedStoryStamp",event.getUnreceivedStoryStamp());
+                        update.set("receivedActiveStamp", event.getReceivedActiveStamp());
+                        update.set("receivedStoryStamp",event.getReceivedStoryStamp());
+                        update.set("unreceivedActiveStamp",event.getUnreceivedActiveStamp());
+                        update.set("unreceivedStoryStamp",event.getUnreceivedStoryStamp());
                         mongoTemplate.updateMulti(query, update, "TotalEvent1");
                 } catch (Exception e) {
                         e.getMessage();
