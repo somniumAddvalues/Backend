@@ -138,8 +138,9 @@ public class EventService {
                 record.setErid(dbHandler.generateSequence(EventRecord.SEQUENCE_NAME));
                 eventRecordMongodbRepository.save(record);
         }
-        public void useEventRecord(String email,Long eid) {
+        public Boolean useEventRecord(String email,Long eid) {
         //사용했다는 기록 남기기
+        try{
                 SimpleDateFormat date = new SimpleDateFormat("yyyyMMdd");
                 String attend_date = date.format(new Date());
                 EventRecord record = new EventRecord();
@@ -149,6 +150,10 @@ public class EventService {
                 record.setUsedPointType(2);
                 record.setErid(dbHandler.generateSequence(EventRecord.SEQUENCE_NAME));
                 eventRecordMongodbRepository.save(record);
+                return true;
+        }catch(Exception e){
+                return false;
+                }
         }
 
 
