@@ -208,7 +208,7 @@ public class EventService {
                         Update update = new Update();
                         // where절 조건
                         query.addCriteria(Criteria.where("tid").is(totalEvent1.getTid()));
-                        update.set("RequestEventPresent",b);
+                        update.set("requestEventPresent",b);
                         update.set("tel",tel);
                         mongoTemplate.updateMulti(query, update, "TotalEvent1");
                 } catch (Exception e) {
@@ -226,7 +226,7 @@ public class EventService {
                         Update update = new Update();
                         // where절 조건
                         query.addCriteria(Criteria.where("tid").is(totalEvent1.getTid()));
-                        update.set("RequestEventPresent",b);
+                        update.set("requestEventPresent",b);
                         mongoTemplate.updateMulti(query, update, "TotalEvent1");
                 } catch (Exception e) {
                         e.getMessage();
