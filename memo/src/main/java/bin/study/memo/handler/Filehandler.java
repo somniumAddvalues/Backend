@@ -1,6 +1,7 @@
 package bin.study.memo.handler;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -14,6 +15,9 @@ import java.util.Objects;
 public class Filehandler {
 
     private final static String TEMP_FILE_PATH = "src/main/resources/";
+
+    @Value("${spring.profiles.active}")
+    private String profile;
 
     // 프로퍼티에서 cloude.aws.s3.bucket에 대한 정보를 불러옵니다.
     public String bucket = "sominium";             // 저는 .properties가 아닌 .yml을 이용하였습니다!
@@ -37,7 +41,15 @@ public class Filehandler {
 
     private File convert(MultipartFile file) throws IOException {
         SimpleDateFormat date = new SimpleDateFormat("yyyyMMdd");
-        File convertFile = new File(Objects.requireNonNull(new Date() +"/"+file.getOriginalFilename()));
+        File convertFile = null;
+        if(profile.equals("dev")){
+             convertFile = new File(Objects.requireNonNull(new Date() +"/dev/"+file.getOriginalFilename()));
+        }else if (profile.equals("server")){
+             convertFile = new File(Objects.requireNonNull(new Date() +"/"+file.getOriginalFilename()));
+        }else{
+             convertFile = new File(Objects.requireNonNull(new Date() +"/local/"+file.getOriginalFilename()));
+        }
+
         if (convertFile.createNewFile()) {
             try (FileOutputStream fos = new FileOutputStream(convertFile)) {
                 fos.write(file.getBytes());

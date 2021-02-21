@@ -96,21 +96,33 @@ public class EventService {
                                 event.setReceivedActiveStamp(event.getReceivedActiveStamp());
                         }else{
                                 event.setReceivedActiveStamp(event.getReceivedActiveStamp()+1);
-                                event.setUnreceivedActiveStamp(event.getUnreceivedActiveStamp()-1);
+                                if(event.getUnreceivedActiveStamp() == 0){
+                                        event.setUnreceivedActiveStamp(-1);
+                                }else{
+                                        event.setUnreceivedActiveStamp(event.getUnreceivedActiveStamp()-1);
+                                }
                         }
                 }else if(review.getType().equals("스토리형")){
                         if(event.getReceivedStoryStamp() >= 5){
                                 event.setReceivedStoryStamp(event.getReceivedStoryStamp());
                         }else{
                                 event.setReceivedStoryStamp(event.getReceivedStoryStamp()+1);
-                                event.setUnreceivedStoryStamp(event.getUnreceivedStoryStamp()-1);
+                                if(event.getUnreceivedStoryStamp() == 0){
+                                        event.setUnreceivedStoryStamp(-1);
+                                }else{
+                                        event.setUnreceivedStoryStamp(event.getUnreceivedStoryStamp()-1);
+                                }
                         }
-                }else if(review.getType().equals("기부형")){
-                        if(event.getReceivedStoryStamp() >= 5){
+                }else if(review.getType().equals("기부형")) {
+                        if (event.getReceivedStoryStamp() >= 5) {
                                 event.setReceivedStoryStamp(event.getReceivedStoryStamp());
-                        }else{
-                                event.setReceivedStoryStamp(event.getReceivedStoryStamp()+1);
-                                event.setUnreceivedStoryStamp(event.getUnreceivedStoryStamp()-1);
+                        } else {
+                                event.setReceivedStoryStamp(event.getReceivedStoryStamp() + 1);
+                                if (event.getUnreceivedStoryStamp() == 0) {
+                                        event.setUnreceivedStoryStamp(-1);
+                                } else {
+                                        event.setUnreceivedStoryStamp(event.getUnreceivedStoryStamp() - 1);
+                                }
                         }
                 }
                 try {
