@@ -177,7 +177,7 @@ public class UserRestController {
     @GetMapping("/logout_")
     @ResponseBody
     public TokenError logout(HttpServletRequest request, HttpServletResponse response){
-         cookieUtil.deleteCookie(request, response);
+         cookieUtil.deleteCookie2(request, response,"refresh_token");
         return new TokenError();
     }
 
