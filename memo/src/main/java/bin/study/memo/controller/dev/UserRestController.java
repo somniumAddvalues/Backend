@@ -96,7 +96,7 @@ public class UserRestController {
         if (loginError.isSuccess()){
             loginError = userService.setToken(loginError,login);
 
-            cookieUtil.deleteCookie(request, response);
+           // cookieUtil.deleteCookie(request, response);
 
             ResponseCookie cookie = ResponseCookie.from("access_token", "")
                     .path("/")
