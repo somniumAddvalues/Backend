@@ -78,18 +78,26 @@ public class ActivityService {
                 break;
             }
             int idx = (int)(Math.random()*activities.size());
-            Activities activity = null;
             if(randomList.size() == 0){
                 randomList.add(idx);
-                activity    = activities.get(idx);
-                activity.setReview_cnt((long) reviewService.find(activity.getAid()).size());
+                Activities activity    = activities.get(idx);
+                if(reviewService.find(activity.getAid()) == null ){
+                    activity.setReview_cnt(0L );
+                }else{
+                    activity.setReview_cnt((long)reviewService.find(activity.getAid()).size());
+                }
                 activity.setImage_file(getImgSrc(activity.getId()));
                 activitiesList.add(activity);
             }else{
                 if(randomList.contains(idx)) continue;
                 randomList.add(idx);
-                activity    = activities.get(idx);
-                activity.setReview_cnt((long) reviewService.find(activity.getAid()).size());
+                Activities activity    = activities.get(idx);
+                if(reviewService.find(activity.getAid()) == null ){
+                    activity.setReview_cnt(0L );
+                }else{
+                    activity.setReview_cnt((long)reviewService.find(activity.getAid()).size());
+                }
+
                 activity.setImage_file(getImgSrc(activity.getId()));
                 activitiesList.add(activity);
             }

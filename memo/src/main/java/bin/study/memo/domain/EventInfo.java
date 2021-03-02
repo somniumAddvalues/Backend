@@ -37,6 +37,10 @@ public class EventInfo {
     private String eventAttendType;
 
     private List<Integer> eventPoint;
+
+    //     db.eventinfo.insertOne({ eid : NumberLong(1), eventName : "테스트", eventEndDate : "20210315", eventStartDate: "20210222" .eventType : "stamp",
+    //     eventEnd : "0", eventAttendType : "review"} )
+
     @Builder
     public EventInfo(ObjectId id, Long eid, String evet_name, String event_end_date, String event_start_date, String event_type, int event_end, String event_attend_type, List<Integer> event_point) {
         this.id = id;

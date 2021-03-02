@@ -71,7 +71,7 @@ public class EventService {
                 }else if(review.getType().equals("참여형")){
                         active_stamp = 1;
                 }else if(review.getType().equals("기부형")){
-                        active_stamp = 1;
+                        story_stamp = 1;
                 }
                 List<Boolean> a = new ArrayList<Boolean>();
                 a.add(false);
@@ -175,11 +175,6 @@ public class EventService {
                List<EventInfo> totalEvent1 = mongoTemplate.find(query, EventInfo.class, "eventinfo");
                 return totalEvent1;
         }
-
-
-
-
-
 
         public User updatePoint(Long eid, TotalEvent1 totalEvent1, int point, int request_event_num, String email) {
                 //포인트 주기

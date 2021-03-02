@@ -131,7 +131,7 @@ public class UserRestController {
                     .path("/")
                     .build();
 
-            cookieUtil.deleteCookie(request, response);
+            //cookieUtil.deleteCookie(request, response);
 
             response.addHeader("Set-Cookie", cookie.toString());
             response.addHeader("Set-Cookie", cookie2.toString());
